@@ -1,1 +1,7 @@
-### todo app build use `vue2`
+### todo app build use `vuejs2`
+
+> npm install 
+
+> npm run dev
+
+> npm run build
