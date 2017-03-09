@@ -1,1 +1,1 @@
-### todo  vue2
+### todo app build use `vue2`

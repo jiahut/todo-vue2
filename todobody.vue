@@ -1,0 +1,72 @@
+<template>
+  <section class="main" v-show="todos.length">
+    <ul class="todo-list">
+      <li v-for="todo in filteredTodos"
+          class="todo"
+          :key="todo.id"
+          :class="{ completed: todo.completed, editing: todo == editedTodo}">
+        <div class="view">
+          <input class="toggle"
+                 type="checkbox"
+                 v-model="todo.completed" />
+          <label @dblclick="editTodo(todo)">{{ todo.title}} </label>
+          <button class="destroy" @click="removeTodo(todo)"></button>
+        </div>
+        <input class="edit"
+               type="text"
+               v-model="todo.title"
+               v-todo-focus="todo == editedTodo"
+               @blur="doneEdit(todo)"
+               @keyup.enter="doneEdit(todo)"
+               @keyup.esc="cancelEdit(todo)" />
+      </li>
+    </ul>
+  </section>
+</template>
+
+<script>
+import storage from './storage.js'
+import filters from './filters.js'
+export default {
+    props: {
+        todos: Array,
+        visibility: String
+    },
+    data() {
+        return {
+            editedTodo: null,
+        }
+    },
+    computed: {
+        filteredTodos() {
+           return filters[this.visibility](this.todos)
+        },
+    },
+    methods: {
+        removeTodo(todo) {
+            this.todos.splice(this.todos.indexOf(todo), 1)
+        },
+        editTodo(todo) {
+            this.beforeEditCache = todo.title
+            this.editedTodo = todo
+        },
+        doneEdit(todo) {
+            if(!this.editedTodo) return
+            this.editedTodo = null
+            todo.title = todo.title.trim()
+            if(!todo.title) {
+                this.removeTodo(todo)
+            }
+        },
+        cacelEdit(todo){
+            this.editedTodo = null
+            todo.title = this.beforeEditCache
+        },
+    },
+    directives: {
+        'todo-focus': (el, value) => {
+                if(value) el.focus()
+        }
+    }
+}
+</script>
