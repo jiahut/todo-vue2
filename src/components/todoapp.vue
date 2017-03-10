@@ -10,8 +10,8 @@
   import TodoHead from './todohead.vue'
   import TodoBody from './todobody.vue'
   import TodoFoot from './todofoot.vue'
-  import storage from './storage.js'
-  import filters from './filters.js'
+  import storage from '../storage.js'
+  import filters from '../filters.js'
 
   export default {
     watch: {

@@ -18,8 +18,8 @@
 
 <script>
 
-import storage from './storage.js'
-import filters from './filters.js'
+import storage from '../storage.js'
+import filters from '../filters.js'
 export default {
     props: {
         todos: Array,

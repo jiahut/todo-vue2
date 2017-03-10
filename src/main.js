@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import TodoApp from './todoapp.vue'
+import TodoApp from './components/todoapp.vue'
 import filters from './filters.js'
 
 Vue.use(Vuex)
