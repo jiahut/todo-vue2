@@ -6,7 +6,7 @@
            autofocus
            autocomplete="off"
            placeholder="What needs to be done?"
-           @keyup.enter="addTodo" />
+           @keyup.enter="addTodo($event)" />
   </header>
 </template>
 
@@ -20,10 +20,8 @@ export default {
     ...mapGetters(['allChecked', 'remaining'])
   },
   methods: {
-    addTodo(evt) {
-      this.$store.commit(types.ADD_TODO, evt.target.value)
-    },
-    ...mapMutations([ types.ADD_TODO, 'toggleAll'])
+    ...mapMutations([ 'toggleAll']),
+    ...mapActions(['addTodo'])
   }
 }
 </script>

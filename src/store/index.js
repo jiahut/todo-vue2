@@ -14,10 +14,7 @@ export default new Vuex.Store({
     editedTodo: ''
   },
   mutations: {
-    [types.ADD_TODO]: (state, newTodo)  => {
-      console.log(newTodo)
-      let todo = newTodo && newTodo.trim()
-      if(!todo) return
+    [types.ADD_TODO]: (state, todo)  => {
       state.todos.push({
         id: storage.uid++,
         title: todo,
@@ -50,6 +47,13 @@ export default new Vuex.Store({
         if(!todo.title) {
           commit("removeTodo", todo)
         }
+    },
+    addTodo({commit, state}, evt) {
+      let newTodo = evt.target.value
+      let todo = newTodo && newTodo.trim()
+      if(!todo) return
+      commit(types.ADD_TODO, todo)
+      evt.target.value = null
     }
   },
   getters: {
