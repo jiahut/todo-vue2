@@ -1,50 +1,29 @@
 <template>
   <header class="header">
     <h1>todos</h1>
-    <input class="toggle-all" type="checkbox" v-model="allDone" />
+    <input class="toggle-all" type="checkbox" @change="toggleAll(!allChecked)" :checked="allChecked"/>
     <input class="new-todo"
            autofocus
            autocomplete="off"
            placeholder="What needs to be done?"
-           v-model="newTodo"
            @keyup.enter="addTodo" />
   </header>
 </template>
 
 <script>
 import storage from '../storage.js'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
+import * as types from '../store/types.js'
+
 export default {
-  props: {
-    todos: Array,
-    remaining: Number
-  },
-  data() {
-    return {
-      newTodo: '',
-    }
-  },
   computed: {
-        allDone: {
-            get() {
-                return this.remaining === 0
-            },
-            set(value){
-               this.todos.forEach(todo => todo.completed = value)
-            }
-        }
+    ...mapGetters(['allChecked', 'remaining'])
   },
   methods: {
-    addTodo() {
-      console.log(this.todos)
-      let todo = this.newTodo && this.newTodo.trim()
-      if(!todo) return
-      this.todos.push({
-        id: storage.uid++,
-        title: todo,
-        completed: false
-      })
-      this.newTodo = ''
-    }
+    addTodo(evt) {
+      this.$store.commit(types.ADD_TODO, evt.target.value)
+    },
+    ...mapMutations([ types.ADD_TODO, 'toggleAll'])
   }
 }
 </script>

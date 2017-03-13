@@ -27,41 +27,16 @@
 <script>
 import storage from '../storage.js'
 import filters from '../filters.js'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
+import * as types from '../store/types.js'
+
 export default {
-    props: {
-        todos: Array,
-        visibility: String
-    },
-    data() {
-        return {
-            editedTodo: null,
-        }
-    },
     computed: {
-        filteredTodos() {
-           return filters[this.visibility](this.todos)
-        },
+        ...mapGetters(['todos','editedTodo', 'visibility', 'filteredTodos'])
     },
     methods: {
-        removeTodo(todo) {
-            this.todos.splice(this.todos.indexOf(todo), 1)
-        },
-        editTodo(todo) {
-            this.beforeEditCache = todo.title
-            this.editedTodo = todo
-        },
-        doneEdit(todo) {
-            if(!this.editedTodo) return
-            this.editedTodo = null
-            todo.title = todo.title.trim()
-            if(!todo.title) {
-                this.removeTodo(todo)
-            }
-        },
-        cacelEdit(todo){
-            this.editedTodo = null
-            todo.title = this.beforeEditCache
-        },
+      ...mapMutations(['removeTodo', 'editTodo', 'cancelEdit']),
+      ...mapActions(['doneEdit'])
     },
     directives: {
         'todo-focus': (el, value) => {

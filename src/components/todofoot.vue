@@ -20,22 +20,20 @@
 
 import storage from '../storage.js'
 import filters from '../filters.js'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
+import * as types from '../store/types.js'
+
 export default {
-    props: {
-        todos: Array,
-        remaining: Number,
-        visibility: String
-    },
-    filters: {
-        pluralize(n) {
-        return n === 1? 'item' : 'items'
-        }
-    },
-    methods:{
-        removeCompleted() {
-            this.$parent.$emit('removeCompleted')
-            // this.todos = filters.active(this.todos)
-        }
+  computed: {
+    ...mapGetters(['todos', 'visibility', 'remaining'])
+  },
+  filters: {
+    pluralize(n) {
+      return n === 1? 'item' : 'items'
     }
+  },
+  methods:{
+    ...mapMutations(['removeCompleted'])
+  }
 }
-</script>
+    </script>

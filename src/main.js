@@ -1,11 +1,10 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import TodoApp from './components/todoapp.vue'
 import filters from './filters.js'
-
-Vue.use(Vuex)
+import store from './store'
 
 new Vue({
   el: '#todo',
+  store,
   render: h => h(TodoApp)
 });
