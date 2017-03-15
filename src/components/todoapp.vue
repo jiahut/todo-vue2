@@ -19,14 +19,14 @@
         TodoBody,
         TodoFoot
     },
-    created() {
-        window.addEventListener('hashchange',() => {
-            let visibility = window.location.hash.replace(/#\/?/, '')
-            if(!filters[visibility]){
-                visibility = 'all'
-            }
-            this.$store.state.visibility = visibility
-        })
-    }
+    // created() {
+    //     window.addEventListener('hashchange',() => {
+    //         let visibility = window.location.hash.replace(/#\/?/, '')
+    //         if(!filters[visibility]){
+    //             visibility = 'all'
+    //         }
+    //         this.$store.state.visibility = visibility
+    //     })
+    // }
 }
 </script>
